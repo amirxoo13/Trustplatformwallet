@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Aurex",
+      "hasCanvas": false,
+      "bodyTextLen": 1533,
+      "bodyTextHash": "27a77447b7790c568619a0c9fa419c338c1786602dec814e3a360573c99c1ddb",
+      "bodyTextPrefix": "Aurex Markets Features Security Log in SELF-CUSTODY · 100+ BLOCK",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Aurex",
+      "hasCanvas": false,
+      "bodyTextLen": 1507,
+      "bodyTextHash": "989a3e297c3e2ea6fd1dbe164f10d37613e0e30248be892209dc2798070d3d7d",
+      "bodyTextPrefix": "Aurex Log in SELF-CUSTODY · 100+ BLOCKCHAINS True crypto ownersh",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}
