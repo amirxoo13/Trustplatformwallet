@@ -2,6 +2,20 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { LOGIN_WINDOW_MS, type ScenarioCode } from "@/lib/auth-config";
 
+// Safe storage adapter that handles SSR (where localStorage doesn't exist)
+const getSafeStorage = () => {
+  if (typeof window === "undefined") {
+    // Server-side: return a no-op storage
+    return {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {},
+    };
+  }
+  // Client-side: use localStorage
+  return localStorage;
+};
+
 interface LoginWindowState {
   hydrated: boolean;
   startedAt: number | null;
@@ -27,7 +41,7 @@ export const useLoginWindow = create<LoginWindowState>()(
     }),
     {
       name: "aurex-login-window",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => getSafeStorage()),
       skipHydration: true,
       merge: (persisted, current) => ({
         ...current,

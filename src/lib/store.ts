@@ -10,6 +10,20 @@ import { generateAddress } from "@/lib/addresses";
 import { COINS, STARTER_HOLDINGS, getCoin } from "@/lib/coins";
 import { remainingMs, useLoginWindow } from "@/lib/login-window";
 
+// Safe storage adapter that handles SSR (where localStorage doesn't exist)
+const getSafeStorage = () => {
+  if (typeof window === "undefined") {
+    // Server-side: return a no-op storage
+    return {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {},
+    };
+  }
+  // Client-side: use localStorage
+  return localStorage;
+};
+
 export type TxType = "send" | "receive" | "swap" | "buy";
 export type TxStatus = "pending" | "confirmed" | "failed";
 
@@ -303,7 +317,7 @@ export const useWallet = create<WalletState>()(
     }),
     {
       name: "aurex-wallet",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => getSafeStorage()),
       skipHydration: true,
       merge: (persisted, current) => ({
         ...current,

@@ -1,6 +1,20 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+// Storage adapter that safely handles SSR (where localStorage doesn't exist)
+const getStorage = () => {
+  if (typeof window === "undefined") {
+    // Server-side: return a no-op storage
+    return {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {},
+    };
+  }
+  // Client-side: use localStorage
+  return localStorage;
+};
+
 export interface SiteContent {
   brandName: string;
   tagline: string;
@@ -207,7 +221,7 @@ export const useSite = create<SiteState>()(
     }),
     {
       name: "aurex-site-en",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => getStorage()),
       skipHydration: true,
       merge: (persisted, current) => ({
         ...current,
